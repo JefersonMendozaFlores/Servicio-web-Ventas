@@ -1,0 +1,172 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_ClientLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reporte Gráfico</title>
+    <style>
+        #chart-container {
+            width: 800px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        #chart {
+            width: 100%;
+            height: 100%;
+            background-color: #f2f2f2;
+        }
+
+        #export-btn {
+            display: block;
+            margin: 0 auto;
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+        }
+
+        #mySelect {
+            width: 200px; /* Ancho del select */
+            padding: 8px; /* Espaciado interno del select */
+            font-size: 16px; /* Tamaño de fuente del select */
+            border: 1px solid #ccc; /* Borde del select */
+            border-radius: 4px; /* Radio de borde del select */
+        }
+
+            #mySelect option {
+                padding: 8px; /* Espaciado interno de las opciones */
+            }
+    </style>
+</head>
+<body>
+    <h1 class="text-center">Reporte Gráfico</h1>
+
+    <hr />
+
+    <h3 class="text-center">
+        <a asp-controller="Reportes" asp-action="ReporteGrafic">
+            <span>Ver REPORTES GRAFICOS</span>
+        </a>
+    </h3>
+
+    <hr />
+
+
+    <p class="text-center">Cantidad de Productos Vendidos y Clientes Registrados</p>
+    <div id="container">
+        <select id="mySelect" name="select">
+            <option value="value1">Bajo</option>
+            <option value="value2">Medio</option>
+            <option value="value3">Alto</option>
+        </select>
+    </div>
+
+    <div id="chart-container">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <br>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.3/jspdf.umd.min.js"></script>
+    <script>
+        const data = {
+            value1: {
+                ventas: {
+                    label: 'Ventas',
+                    data: [300, 500, 700, 600, 400],
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },
+                clientes: {
+                    label: 'Clientes',
+                    data: [250, 350, 500, 450, 250],
+                    backgroundColor: 'rgba(39, 122, 191 , 0.5)',
+                    borderColor: 'rgba(39, 122, 191 , 1)',
+                    borderWidth: 1
+                }
+            },
+            value2: {
+                ventas: {
+                    label: 'Ventas',
+                    data: [500, 800, 1200, 900, 600],
+                    backgroundColor: 'rgba(22, 228, 103, 0.5)',
+                    borderColor: 'rgba(22, 228, 103, 1)',
+                    borderWidth: 1
+                },
+                clientes: {
+                    label: 'Clientes',
+                    data: [350, 500, 650, 600, 350],
+                    backgroundColor: 'rgba(36, 193, 45 , 0.5)',
+                    borderColor: 'rgba(36, 193, 45 , 1)',
+                    borderWidth: 1
+                }
+            },
+            value3: {
+                ventas: {
+                    label: 'Ventas',
+                    data: [1200, 1500, 800, 1900, 1400],
+                    backgroundColor: 'rgba(190, 54, 230, 0.5)',
+                    borderColor: 'rgba(190, 54, 230, 1)',
+                    borderWidth: 1
+                },
+                clientes: {
+                    label: 'Clientes',
+                    data: [750, 850, 400, 1000, 950],
+                    backgroundColor: 'rgba(105, 38, 124 , 0.5)',
+                    borderColor: 'rgba(105, 38, 124 , 1)',
+                    borderWidth: 1
+                }
+            }
+        };
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        let currentData = {
+            ventas: data.value1.ventas,
+            clientes: data.value1.clientes
+        };
+
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+                datasets: [currentData.ventas, currentData.clientes]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        document.getElementById('mySelect').addEventListener('change', (event) => {
+            const selectedValue = event.target.value;
+            currentData.ventas = data[selectedValue].ventas;
+            currentData.clientes = data[selectedValue].clientes;
+            updateChart();
+        });
+
+        function updateChart() {
+            myChart.data.datasets = [currentData.ventas, currentData.clientes];
+            myChart.update();
+        }
+
+        document.getElementById('export-btn').addEventListener('click', () => {
+            const pdf = new jsPDF();
+            const canvas = document.getElementById('myChart');
+            const canvasImg = canvas.toDataURL('image/jpeg', 1.0);
+            pdf.addImage(canvasImg, 'JPEG', 10, 10, 190, 100);
+            pdf.save('reporte.pdf');
+        });
+    </script>
+</body>
+</html>

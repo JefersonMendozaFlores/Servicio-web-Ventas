@@ -1,0 +1,100 @@
+﻿@model CartViewModel
+
+@{
+    ViewData["Title"] = "Cart Overview";
+    Layout = "~/Views/Shared/_ClientLayout.cshtml";
+}
+
+@if (Model.CartItems.Count > 0)
+{
+
+    <div class="Shopping-cart-area pt-60 pb-60">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <form action="#">
+                        <div class="table-content table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="li-product-remove" style="width:8%">remove</th>
+                                        <th class="li-product-thumbnail">images</th>
+                                        <th class="cart-product-name">Product</th>
+                                        <th class="li-product-price">Unit Price</th>
+                                        <th class="li-product-quantity" style="width:15%">Quantity</th>
+                                        <th class="li-product-subtotal">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var cardItem in Model.CartItems)
+                                    {
+                                        <tr>
+                                            <td class="li-product-remove"><a asp-action="Remove" asp-route-id="@cardItem.ProductId"><i class="fa fa-times"></i></a></td>
+                                            <td class="li-product-thumbnail"><img src="/media/products/@cardItem.Image" alt="@cardItem.ProductName Image" width="50px" height="50px"></td>
+                                            <td class="li-product-name">@cardItem.ProductName</td>
+                                            <td class="li-product-price"><span class="amount">@cardItem.Price.ToString("C2")</span></td>
+                                            <td class="quatity">
+                                                @*<div>
+                                        <a class="input-group-text" asp-action="Decrease" asp-route-id="@cardItem.ProductId">-</a>
+                                        <input type="text" class="form-control" value="@cardItem.Quantity">
+                                        <a class="input-group-text" asp-action="Add" asp-route-id="@cardItem.ProductId">+</a>
+                                        </div>*@
+
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <a class="input-group-text" asp-action="Decrease" asp-route-id="@cardItem.ProductId">-</a>
+                                                    </div>
+                                                    <input type="text" class="form-control col-sm-8" value="@cardItem.Quantity">
+                                                    <div class="input-group-prepend">
+                                                        <a class="input-group-text" asp-action="Add" asp-route-id="@cardItem.ProductId">+</a>
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                            <td class="product-subtotal"><span class="amount">@cardItem.Total.ToString("C2")</span></td>
+                                        </tr>
+
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5 ml-auto">
+                                <div class="cart-page-total">
+                                    <h2>Cart totals</h2>
+                                    <ul>
+                                        <li>Total <span>@Model.GrandTotal.ToString("C2")</span></li>
+                                    </ul>
+                                    @*<a href="#">Comprar </a>*@
+                                    @if (User.Identity?.IsAuthenticated ?? false)
+                                    {
+                                        <a asp-controller="Checkout" asp-action="Tarjeta">
+                                            <span>Seguir Compra</span>
+                                        </a>                              
+                                    }
+                                    else
+                                    {
+                                        <h3>Inicia sesión o registrate para realizar tu compra</h3>
+                                        
+                                    }
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    <h3 class="display-4 text-center">Your cart is empty.</h3>
+}
+

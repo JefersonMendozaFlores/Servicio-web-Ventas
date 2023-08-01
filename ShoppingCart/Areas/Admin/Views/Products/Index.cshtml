@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Views/Shared/_ClientLayout.cshtml";
+}
+
+
+<!-- Begin Li's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="#">Admin</a></li>
+                <li class="active">Product</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Li's Breadcrumb Area End Here -->
+<!--Wishlist Area Strat-->
+<div class="wishlist-area pt-60 pb-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p class="crear">
+                    <a asp-action="Create">Create New</a>
+                </p>
+
+                <div class="table-content table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Category</th>
+                                <th>Image</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Name
+                                    </td>
+                                    <td>
+                                        @item.Price.ToString("C2")
+                                    </td>
+                                    <td>
+                                        @item.Category.Name
+                                    </td>
+                                    <td>
+                                        <img src="/media/products/@item.Image" width="100" alt="" />
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="confirmDeletion">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+
+                
+
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!--Wishlist Area End-->
+
+
+<div class="d-flex w-100 justify-content-center">
+    <pagination page-count="@ViewBag.TotalPages"
+                page-target="/admin/products/@ViewBag.CategorySlug"
+                page-number="@ViewBag.PageNumber"
+                page-range="@ViewBag.PageRange">
+    </pagination>
+</div>
+
+<style>
+   
+    .crear {
+        width: 10%;
+        border: 1px solid #2e518b;
+        background-color: #007BFF;
+        border-radius: 20px;
+        text-align: center;
+    }
+</style>

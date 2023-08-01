@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewData["Title"] = "Tarjeta";
+    Layout = "~/Views/Shared/_ClientLayout.cshtml";
+}
+
+<h1 class="text-center"> PROCESO DE CHECKOUT </h1>
+<br>
+<h3 class="text-center">Elija la tarjeta de su preferencia</h3>
+<hr />
+
+<div class="container">
+
+    <form action="">
+
+        <div class="row">
+
+            <div class="col">
+
+                <h3 class="title">Dirección de Envio</h3>
+
+                <div class="inputBox">
+                    <span>Nombre completos :</span>
+                    <input type="text" placeholder="Coloque sus nombres y apellidos" required>
+                </div>
+                <div class="inputBox">
+                    <span>Correo Personal :</span>
+                    <input type="email" placeholder="Coloque su correo electronico" required>
+                </div>
+                <div class="inputBox">
+                    <span>Direccion :</span>
+                    <input type="text" placeholder="room - street - locality" required>
+                </div>
+                <div class="inputBox">
+                    <span>Ciudad :</span>
+                    <input type="text" placeholder="Colocar la ciudad que vive" required>
+                </div>
+
+                <div class="flex">
+                    <div class="inputBox">
+                        <span>Distrito :</span>
+                        <input type="text" placeholder="Colocar el distrito que vive" required>
+                    </div>
+                    <div class="inputBox">
+                        <span>Telefono :</span>
+                        <input type="text" placeholder="Coloque su numero de celular o telefono" required>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col">
+
+                <h3 class="title">Forma de Pago</h3>
+
+                <div class="inputBox">
+                    <span>cards accepted :</span>
+                    <img src="~/css/card_img.png" alt="">
+                </div>
+                <br />
+                <div class="inputBox">
+                    <span>Nombre de la Tarjeta :</span>
+                    <input type="text" placeholder="Nombre de la tarjeta" required>
+                </div>
+                <div class="inputBox">
+                    <span>Número de Tarjeta de Crédito :</span>
+                    <input type="number" placeholder="Numero de la tarjeta escogida" required>
+                </div>
+                <div class="inputBox">
+                    <span>Mes de caducidad :</span>
+                    <input type="text" placeholder="Coloque el mes de vencimiento" required>
+                </div>
+
+                <div class="flex">
+                    <div class="inputBox">
+                        <span>Año de caducidad :</span>
+                        <input type="number" placeholder="Coloque el año de vencimiento" required>
+                    </div>
+                    <div class="inputBox">
+                        <span>CVV :</span>
+                        <input type="text" placeholder="Colocar el CVV - la puede encontrar detras de su tarjeta" required>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr />
+
+        <button onclick="alert('Su compra se realizo de manera existosa, se le redigira a un listado de su compra para mas informacion')" class="btn btn-danger" asp-controller="Checkout" asp-action="Index">
+            <span>Hacer pago de su compra</span>
+        </button>
+        <p>Se le direccionara a la lsita de sus compras</p>
+
+        <hr />
+
+    </form>
+
+</div>
+
+<hr />
+

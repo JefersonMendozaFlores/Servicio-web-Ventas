@@ -1,0 +1,65 @@
+﻿@model ShoppingCart.Models.User
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_ClientLayout.cshtml";
+}
+
+<div class="container">
+    <h1>Delete User</h1>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h3>¿Está seguro de que desea eliminar este usuario?</h3>
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">User detalle</h4>
+                    <hr />
+
+                    <dl class="row">
+                        <dt class="col-sm-4">
+                            <strong>@Html.DisplayNameFor(model => model.Id)</strong>
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Id)
+                        </dd>
+                        <dt class="col-sm-4">
+                            <strong>@Html.DisplayNameFor(model => model.UserName)</strong>
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.UserName)
+                        </dd>
+                        <dt class="col-sm-4">
+                            <strong>@Html.DisplayNameFor(model => model.Email)</strong>
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Email)
+                        </dd>
+                        <dt class="col-sm-4">
+                            <strong>@Html.DisplayNameFor(model => model.Password)</strong>
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Password)
+                        </dd>
+                    </dl>
+
+                    <form asp-action="Delete" class="mt-4">
+                        @Html.HiddenFor(model => model.Id)
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

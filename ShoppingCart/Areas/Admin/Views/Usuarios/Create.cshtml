@@ -1,0 +1,64 @@
+﻿@model ShoppingCart.Models.ViewModels.User.CreateUserViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_ClientLayout.cshtml";
+}
+<div class="container">
+    <div class="breadcrumb-area">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="#">User</a></li>
+                <li class="active">Create</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="wishlist-area">
+        <div class="row">
+            <div class="col-12">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="UserName" class="control-label"></label>
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select asp-for="RoleName" class="form-control" asp-items="ViewBag.Roles">
+                            <option value="0">Choose a role</option>
+                        </select>
+                        <span asp-validation-for="RoleName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="coment-btn pt-30 pb-sm-30 pb-xs-30">
+                            <input class="li-btn-2" type="submit" name="submit" value="Create">
+                        </div>                        
+                    </div>
+
+                    <div class="form-group">
+                        <a asp-action="Index" class="register-button mt-0">Back to List</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

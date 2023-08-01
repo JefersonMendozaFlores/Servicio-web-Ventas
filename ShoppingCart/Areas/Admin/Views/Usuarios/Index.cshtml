@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_ClientLayout.cshtml";
+}
+
+@model List<ShoppingCart.Models.ViewModels.User.ListUserViewModel>
+
+<div class="container">
+    <div class="breadcrumb-area">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="#">Admin</a></li>
+                <li class="active">Users</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="wishlist-area">
+
+        <partial name="_NotificationPartial" />
+
+        <div class="row">
+            <div class="col-12">
+                <div class="default-btn">
+                    <a asp-action="Create" class="links">Create New</a>
+                </div>
+                <br />
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.Username</td>
+                                <td>@user.Email</td>
+                                <td>@user.Role</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@user.Id">Edit</a> |
+                                    <a asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
